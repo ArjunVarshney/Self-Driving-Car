@@ -27,7 +27,9 @@ class Car {
          this.img.src = "./images/Auto.png";
          console.log(this.controlType);
       } else {
-         this.img.src = `./images/car (${Math.round(1+Math.random()*27)}).png`;
+         this.img.src = `./images/Car (${Math.round(
+            1 + Math.random() * 27
+         )}).png`;
       }
       this.mask = document.createElement("canvas");
       this.mask.width = width;
