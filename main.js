@@ -116,41 +116,21 @@ function discard() {
 
 function generateCars(N, type, topSpeed) {
    let cars = [];
+   let height = carHeight;
+   let width = carWidth;
+   if (type !== "DUMMY") {
+      height = carHeight - 22;
+      width = carWidth - 15;
+   }
    for (let i = 1; i <= N; i++) {
       cars.push(
-         new Car(
-            road.getLaneCenter(1),
-            100,
-            carWidth,
-            carHeight,
-            type,
-            topSpeed
-         )
+         new Car(road.getLaneCenter(1), 100, width, height, type, topSpeed)
       );
    }
    return cars;
 }
 
-function checkStalking(car) {
-   if (car.speedArray.length > 3)
-      return (
-         car.angle == 0 &&
-         Math.round(car.speedArray.reduce((a, b) => a + b, 0)) == 2
-      );
-   return false;
-}
-
-function checkCars(y) {
-   for (let i = 0; i < cars.length; i++) {
-      if (!cars[i].damaged && cars[i].y < y + 400 && !checkStalking(cars[i])) {
-         return true;
-      }
-   }
-   return false;
-}
-
-let c = 0;
-function animate(time) {
+function animate() {
    for (let i = 0; i < traffic.length; i++) {
       traffic[i].update(road.borders, []);
    }
@@ -165,13 +145,6 @@ function animate(time) {
       minY = Math.min(...cars.map((c) => c.y));
       return c.y == minY;
    });
-   if (time % 1000 && !checkStalking(bestCar)) {
-      // save();
-   }
-   if (!checkCars(minY) && c == 0) {
-      window.location.reload();
-      c++;
-   }
 
    carCanvas.height = window.innerHeight;
    networkCanvas.height = window.innerHeight;
@@ -182,16 +155,16 @@ function animate(time) {
    road.draw(carCtx);
 
    for (let i = 0; i < traffic.length; i++) {
-      traffic[i].draw(carCtx, "red");
+      traffic[i].draw(carCtx);
    }
 
    carCtx.globalAlpha = 0.2;
    for (let i = 0; i < cars.length; i++) {
       const car = cars[i];
-      car.draw(carCtx, "blue");
+      car.draw(carCtx);
    }
    carCtx.globalAlpha = 1;
-   bestCar.draw(carCtx, "blue", true);
+   bestCar.draw(carCtx);
 
    carCtx.restore();
 
