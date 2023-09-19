@@ -241,13 +241,15 @@ function generateCars(N, type, topSpeed) {
    return cars;
 }
 
+let c = 0;
 function animate() {
    for (let i = 0; i < traffic.length; i++) {
       traffic[i].update(road.borders, []);
    }
 
-   if (keyCar.damaged) {
+   if (keyCar.damaged && c == 0) {
       setTimeout(() => window.location.reload(), 2000);
+      c++;
    }
 
    document.addEventListener("touchstart", (e) => {
