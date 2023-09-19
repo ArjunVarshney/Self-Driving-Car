@@ -25,7 +25,6 @@ class Car {
       this.img = new Image();
       if (controlType !== "DUMMY") {
          this.img.src = "./images/Auto.png";
-         console.log(this.controlType);
       } else {
          this.img.src = `./images/Car (${Math.round(
             1 + Math.random() * 27
@@ -65,6 +64,9 @@ class Car {
             this.controls.right = outputs[2];
             this.controls.reverse = outputs[3];
          }
+      }
+      if (window.innerWidth <= 1125 && !this.useBrain) {
+         this.controls.forward = true;
       }
    }
 

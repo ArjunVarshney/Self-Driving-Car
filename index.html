@@ -10,11 +10,11 @@
 
 <body>
    <canvas id="carCanvas"></canvas>
-   <div id="verticalButtons">
-      <button onclick="save()">💾</button>
-      <button onclick="discard()">🗑️</button>
-   </div>
    <canvas id="networkCanvas"></canvas>
+   <div class="arrows">
+      <button id="left-btn" onmousedown="moveLeft()">←</button>
+      <button id="right-btn">→</button>
+   </div>
    <script src="network.js"></script>
    <script src="visualizer.js"></script>
    <script src="sensor.js"></script>
